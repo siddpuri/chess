@@ -30,4 +30,16 @@ export default class Board {
         this.board[0][4] = new King(this, 1, [0, 4]);
         this.board[7][4] = new King(this, -1, [7, 4]);
     }
+
+    renderMove(piece, offset) {
+        let dest = [piece.position[0] + offset[0], piece.position[1] + offset[1]];
+        return (
+            `${piece.getSymbol()} ` +
+            `${renderPosition(piece.position)} -> ${renderPosition(dest)}`
+        );
+    }
+
+    renderPosition(position) {
+        return String.fromCharCode(97 + position[1]) + (8 - position[0]);
+    }
 }

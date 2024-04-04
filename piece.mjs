@@ -4,10 +4,6 @@ const alldirs = concat(horizontals, diagonals);
 const knights = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
 
 export default class Piece {
-    board;
-    color;
-    position;
-
     constructor(board, color, position) {
         this.board = board;
         this.color = color;
@@ -17,9 +13,7 @@ export default class Piece {
     whatsAt(rowOffset, colOffset) {
         let row = this.position[0] + rowOffset;
         let col = this.position[1] + colOffset;
-        if (row < 0 || row >= 8 || col < 0 || col >= 8) {
-            return undefined;
-        }
+        if (row < 0 || row >= 8 || col < 0 || col >= 8) return undefined;
         return this.board[row][col];
     }
 
@@ -42,6 +36,7 @@ export class Pawn extends Piece {
     constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 1; }
+    getSymbol() { return "♟"; }
 
     getMoves() {
         let moves = [];
@@ -62,7 +57,7 @@ export class Pawn extends Piece {
     }
 
     isInStartingRow() {
-        return this.color === 1 ? this.position[0] === 1 : this.position[0] === 6;
+        return this.position[0] === (this.color === 1? 1 : 6);
     }
 }
 
@@ -70,6 +65,7 @@ export class Rook extends Piece {
     constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 5; }
+    getSign() { return "♜"; }
     getMoves() { return getLongMoves(horizontals); }
 }
 
@@ -91,11 +87,10 @@ export class Knight extends Piece {
 }
 
 export class Bishop extends Piece {
-    constructor(board, color, position) {
-        super(board, color, position);
-    }
+    constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 3; }
+    getSign() { return "♝"; }
     getMoves() { return getLongMoves(diagonals); }
 }
 
@@ -105,15 +100,15 @@ export class Queen extends Piece {
     }
 
     getValue() { return 9; }
+    getSign() { return "♛"; }
     getMoves() { return getLongMoves(alldirs); }
 }
 
 export class King extends Piece {
-    constructor(board, color, position) {
-        super(board, color, position);
-    }
+    constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 1000; }
+    getSign() { return "♚"; }
 
     getMoves() {
         let moves = [];
