@@ -1,6 +1,6 @@
 const horizontals = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 const diagonals = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
-const alldirs = concat(horizontals, diagonals);
+const alldirs = horizontals.concat(diagonals);
 const knights = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
 
 export default class Piece {
@@ -65,7 +65,7 @@ export class Rook extends Piece {
     constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 5; }
-    getSign() { return "♜"; }
+    getSymbol() { return "♜"; }
     getMoves() { return getLongMoves(horizontals); }
 }
 
@@ -73,6 +73,7 @@ export class Knight extends Piece {
     constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 3; }
+    getSymbol() { return "♞"; }
 
     getMoves() {
         let moves = [];
@@ -90,7 +91,7 @@ export class Bishop extends Piece {
     constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 3; }
-    getSign() { return "♝"; }
+    getSymbol() { return "♝"; }
     getMoves() { return getLongMoves(diagonals); }
 }
 
@@ -100,7 +101,7 @@ export class Queen extends Piece {
     }
 
     getValue() { return 9; }
-    getSign() { return "♛"; }
+    getSymbol() { return "♛"; }
     getMoves() { return getLongMoves(alldirs); }
 }
 
@@ -108,7 +109,7 @@ export class King extends Piece {
     constructor(board, color, position) { super(board, color, position); }
 
     getValue() { return 1000; }
-    getSign() { return "♚"; }
+    getSymbol() { return "♚"; }
 
     getMoves() {
         let moves = [];

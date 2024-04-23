@@ -1,11 +1,11 @@
-import Piece from './piece.mjs';
+import { Pawn, Rook, Knight, Bishop, Queen, King } from './piece.mjs';
 
 export default class Board {
     board = new Array(8).fill(null).map(() => new Array(8).fill(null));
     moves = [];
 
-    Board() {
-        createPieces();
+    constructor() {
+        this.createPieces();
     }
 
     createPieces() {
@@ -41,5 +41,17 @@ export default class Board {
 
     renderPosition(position) {
         return String.fromCharCode(97 + position[1]) + (8 - position[0]);
+    }
+
+    renderBoard() {
+        let result = '';
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                let piece = this.board[row][col];
+                result += piece? piece.getSymbol() : '.';
+            }
+            result += '\n';
+        }
+        return result;
     }
 }
